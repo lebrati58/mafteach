@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 מפתח לזיהוי צמחים</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a4a1a 0%, #2d7a2d 50%, #1a6b3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .wrapper {
+            max-width: 640px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 1.9em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.85;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 32px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+        }
+
+        /* Trail */
+        .trail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 22px;
+            min-height: 28px;
+            align-items: center;
+        }
+
+        .trail-item {
+            font-size: 0.78em;
+            background: #e8f5e8;
+            color: #2d7a2d;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid #c3e6c3;
+        }
+
+        .trail-arrow {
+            color: #aaa;
+            font-size: 0.8em;
+        }
+
+        /* Question */
+        .q-label {
+            font-size: 0.8em;
+            color: #999;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .question-box {
+            font-size: 1.15em;
+            color: #1a1a1a;
+            line-height: 1.7;
+            margin-bottom: 26px;
+            padding: 18px 20px;
+            background: #f4fbf4;
+            border-radius: 12px;
+            border-right: 5px solid #2d7a2d;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: right;
+            transition: all 0.2s ease;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover {
+            border-color: #2d7a2d;
+            background: #f4fbf4;
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(45,122,45,0.15);
+        }
+
+        .option-btn:active {
+            transform: translateX(-2px);
+        }
+
+        /* Reset */
+        .reset-btn {
+            background: none;
+            border: 2px solid #ccc;
+            color: #888;
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 22px;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            border-color: #888;
+            color: #444;
+        }
+
+        /* Result */
+        .result {
+            text-align: center;
+        }
+
+        .result-check {
+            font-size: 1em;
+            color: #2d7a2d;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .plant-emoji {
+            font-size: 4.5em;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .plant-name-he {
+            font-size: 2.2em;
+            color: #1a4a1a;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .plant-name-latin {
+            font-size: 1em;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .plant-desc {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.97em;
+            background: #f4fbf4;
+            padding: 16px 20px;
+            border-radius: 12px;
+            text-align: right;
+            margin-bottom: 24px;
+        }
+
+        .result-reset-btn {
+            background: #2d7a2d;
+            color: white;
+            border: none;
+            padding: 13px 34px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.2s;
+        }
+
+        .result-reset-btn:hover {
+            background: #1a5a1a;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 4px;
+            background: #eee;
+            border-radius: 4px;
+            margin-bottom: 22px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d7a2d, #5abf5a);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>🌿 מפתח לזיהוי צמחים</h1>
+            <p>ענה על השאלות וגלה מהו הצמח שלפניך</p>
+        </div>
+
+        <div class="card">
+            <div id="trail" class="trail"></div>
+            <div class="progress-bar"><div id="progress" class="progress-fill" style="width:0%"></div></div>
+            <div id="quiz"></div>
+        </div>
+    </div>
+
+    <script>
+        // ────── Decision Tree ──────
+        const tree = {
+            q1: {
+                num: 1,
+                text: "הצמח בעל ענפים קוצניים או חסר ענפים קוצניים?",
+                options: [
+                    { text: "הצמח בעל ענפים קוצניים 🌵", next: "q2" },
+                    { text: "הצמח חסר ענפים קוצניים 🌿", next: "q4" }
+                ]
+            },
+            q2: {
+                num: 2,
+                text: "ענפי הצמח בצבע אפור, העלים לתמנוניים (חסר עלים רוב השנה), הפרי מאורך ושעיר, הפריחה צהובה וריחנית?",
+                options: [
+                    { text: "כן ✓", result: "קידה שעירה" },
+                    { text: "לא →", next: "q3" }
+                ]
+            },
+            q3: {
+                num: 3,
+                text: "ענפי השיח בצבע ירקרק, העלים צרים ומאורכים (חסר עלים רוב השנה)?",
+                options: [
+                    { text: "כן ✓", result: "רתמה קוצנית" }
+                ]
+            },
+            q4: {
+                num: 4,
+                text: "העלים מחטניים, גמישים ויוצאים בזוגות?",
+                options: [
+                    { text: "כן ✓", result: "אורן ירושלים" },
+                    { text: "לא →", next: "q6" }
+                ]
+            },
+            q6: {
+                num: 6,
+                text: "העלים מורכבים או פשוטים?",
+                options: [
+                    { text: "עלים מורכבים (מחולקים לעלעלים)", next: "q11" },
+                    { text: "עלים פשוטים (שלמים)", next: "q8" }
+                ]
+            },
+            q8: {
+                num: 8,
+                text: "העלים משוננים ומסתיימים בחוד זקוף?",
+                options: [
+                    { text: "כן ✓", result: "אלון מצוי" },
+                    { text: "לא →", next: "q9" }
+                ]
+            },
+            q9: {
+                num: 9,
+                text: "העלים עגולים?",
+                options: [
+                    { text: "כן →", next: "q10" },
+                    { text: "לא (צורה אחרת)", result: null, dead: true }
+                ]
+            },
+            q10: {
+                num: 10,
+                text: "העלים רכים ומכוסים בשעוות לבנות?",
+                options: [
+                    { text: "כן ✓", result: "לוטם" }
+                ]
+            },
+            q11: {
+                num: 11,
+                text: "בחיק העלעלים — נמצא ניצן או לא נמצא ניצן?",
+                options: [
+                    { text: "נמצא ניצן →", next: "q12" },
+                    { text: "לא נמצא ניצן →", next: "q14" }
+                ]
+            },
+            q12: {
+                num: 12,
+                text: "רוחב העלעלים עולה על 2.5 ס\"מ?",
+                options: [
+                    { text: "כן — עלעלים רחבים מ-2.5 ס\"מ", result: "חרוב" },
+                    { text: "לא — עלעלים צרים מ-2.5 ס\"מ", next: "q14" }
+                ]
+            },
+            q14: {
+                num: 14,
+                text: "העלעלים רכים ובעלי ריח חריף?",
+                options: [
+                    { text: "כן ✓", result: "אלת המסטיק" },
+                    { text: "לא →", next: "q15" }
+                ]
+            },
+            q15: {
+                num: 15,
+                text: "העלעלים רכים, ראש העלעל מסתיים לרוב בחוד גמיש?",
+                options: [
+                    { text: "כן ✓", result: "אלה ארץ ישראלית" },
+                    { text: "לא — נוקשים ובעלי ריח חריף ✓", result: "אלת המסטיק" }
+                ]
+            }
+        };
+
+        // ────── Plant Info ──────
+        const plants = {
+            'קידה שעירה': {
+                emoji: '🌼',
+                latin: 'Calicotome villosa',
+                desc: 'שיח קוצני גבוה עם ענפים אפורים. פורח בפרחים צהובים ריחניים בסוף החורף ובאביב. הפרי הוא תרמיל שעיר ומאורך. נפוץ מאוד בחורש הים-תיכוני של ישראל.'
+            },
+            'רתמה קוצנית': {
+                emoji: '🌾',
+                latin: 'Retama raetam',
+                desc: 'שיח קוצני עם ענפים ירקרקים ודקים, כמעט נטול עלים. גדל בשטחים חוליים ויבשים. מוכר ממנו "הרותם" בתנ"ך — שם ישב אליהו בצל.'
+            },
+            'אורן ירושלים': {
+                emoji: '🌲',
+                latin: 'Pinus halepensis',
+                desc: 'עץ ירוק-עד גבוה עם עלים מחטניים דקים וגמישים, היוצאים בזוגות. נפוץ בגבעות ובייעורים ברחבי ישראל. הזרעים ("גרעיני אורן") אכילים.'
+            },
+            'אלון מצוי': {
+                emoji: '🍂',
+                latin: 'Quercus calliprinos',
+                desc: 'עץ שיח ירוק-עד עם עלים קשים ומשוננים המסתיימים בחוד זקוף. הפרי הוא בלוט קטן. נפוץ מאוד ומרכזי ביותר בחורש הים-תיכוני.'
+            },
+            'לוטם': {
+                emoji: '🌸',
+                latin: 'Cistus sp.',
+                desc: 'שיח בעל עלים רכים מכוסי שעוות לבנות ושעירות. פורח בפרחים לבנים או ורודים גדולים. מפיק שרף ריחני (לבדנום) שנחשב יקר ערך בעת העתיקה.'
+            },
+            'חרוב': {
+                emoji: '🫘',
+                latin: 'Ceratonia siliqua',
+                desc: 'עץ ירוק-עד כבד וסבוך עם עלים מורכבים ועלעלים רחבים ועגלגלים. הפרי — תרמיל החרוב — מתוק ואכיל. עץ מקודש ואהוב בארץ ישראל מאז ומתמיד.'
+            },
+            'אלת המסטיק': {
+                emoji: '🌿',
+                latin: 'Pistacia lentiscus',
+                desc: 'שיח ירוק-עד עם עלים מורכבים ובעלי ריח חריף ואופייני. מפיק שרף המסטיק הידוע. מרכיב בסיסי בחורש הים-תיכוני, עמיד מאוד לבצורת.'
+            },
+            'אלה ארץ ישראלית': {
+                emoji: '🍃',
+                latin: 'Pistacia palaestina',
+                desc: 'עץ נשיר עם עלים מורכבים רכים; ראש העלעל מסתיים בחוד גמיש ולא מחודד. הפרי קטן ואדמדם. עץ יפה המאבד עליו בחורף ומלבין אדום בסתיו.'
+            }
+        };
+
+        // ────── State ──────
+        let history = [];
+        let currentQ = 'q1';
+        const TOTAL_MAX = 6; // approximate max depth for progress bar
+
+        // ────── Render ──────
+        function render() {
+            renderTrail();
+            const node = tree[currentQ];
+            if (!node) return;
+
+            document.getElementById('progress').style.width =
+                Math.min((history.length / TOTAL_MAX) * 100, 90) + '%';
+
+            let optionsHtml = node.options.map((opt, i) => {
+                if (opt.dead) {
+                    return `<button class="option-btn" style="color:#aaa;cursor:default" disabled>${opt.text}</button>`;
+                }
+                return `<button class="option-btn" onclick="answer(${i})">${opt.text}</button>`;
+            }).join('');
+
+            let resetHtml = history.length > 0
+                ? `<button class="reset-btn" onclick="reset()">↩ התחל מחדש</button>`
+                : '';
+
+            document.getElementById('quiz').innerHTML = `
+                <div class="q-label">שאלה ${node.num}</div>
+                <div class="question-box">${node.text}</div>
+                <div class="options">${optionsHtml}</div>
+                ${resetHtml}
+            `;
+        }
+
+        function renderTrail() {
+            const trailEl = document.getElementById('trail');
+            if (history.length === 0) { trailEl.innerHTML = ''; return; }
+
+            let html = '';
+            history.forEach((h, i) => {
+                if (i > 0) html += '<span class="trail-arrow">›</span>';
+                html += `<span class="trail-item">${h}</span>`;
+            });
+            trailEl.innerHTML = html;
+        }
+
+        // ────── Interactions ──────
+        function answer(optIndex) {
+            const node = tree[currentQ];
+            const opt = node.options[optIndex];
+
+            // Clean emoji for trail
+            const trailText = opt.text.replace(/[🌵🌿🌾🌲🍂🌸🫘🍃🌼✓→]/g, '').trim();
+            history.push(trailText);
+
+            if (opt.result) {
+                showResult(opt.result);
+            } else if (opt.next) {
+                currentQ = opt.next;
+                render();
+            }
+        }
+
+        function showResult(plantName) {
+            const plant = plants[plantName];
+            document.getElementById('progress').style.width = '100%';
+            renderTrail();
+
+            document.getElementById('quiz').innerHTML = `
+                <div class="result">
+                    <div class="result-check">✅ זוהה הצמח</div>
+                    <span class="plant-emoji">${plant.emoji}</span>
+                    <div class="plant-name-he">${plantName}</div>
+                    <div class="plant-name-latin">${plant.latin}</div>
+                    <div class="plant-desc">${plant.desc}</div>
+                    <button class="result-reset-btn" onclick="reset()">🔄 זיהוי צמח חדש</button>
+                </div>
+            `;
+        }
+
+        function reset() {
+            history = [];
+            currentQ = 'q1';
+            render();
+        }
+
+        // ────── Init ──────
+        render();
+    </script>
+</body>
+</html>
