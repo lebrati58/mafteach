@@ -6,7 +6,6 @@
     <title>🌿 מפתח לזיהוי צמחים</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #1a4a1a 0%, #2d7a2d 50%, #1a6b3a 100%);
@@ -16,449 +15,566 @@
             justify-content: center;
             padding: 20px;
         }
-
-        .wrapper {
-            max-width: 640px;
-            width: 100%;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 24px;
-        }
-
-        .header h1 {
-            font-size: 1.9em;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 0.9em;
-            opacity: 0.85;
-            margin-top: 6px;
-        }
-
+        .wrapper { max-width: 640px; width: 100%; }
+        .header { text-align: center; color: white; margin-bottom: 22px; }
+        .header h1 { font-size: 1.8em; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .header p { font-size: 0.88em; opacity: 0.85; margin-top: 5px; }
         .card {
             background: white;
             border-radius: 20px;
-            padding: 36px 32px;
+            padding: 32px 30px;
             box-shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
-
         /* Trail */
-        .trail {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 22px;
-            min-height: 28px;
-            align-items: center;
-        }
-
-        .trail-item {
-            font-size: 0.78em;
-            background: #e8f5e8;
-            color: #2d7a2d;
-            padding: 3px 10px;
-            border-radius: 20px;
-            border: 1px solid #c3e6c3;
-        }
-
-        .trail-arrow {
-            color: #aaa;
-            font-size: 0.8em;
-        }
-
+        .trail { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; min-height: 26px; align-items: center; }
+        .trail-item { font-size: 0.75em; background: #e8f5e8; color: #2d7a2d; padding: 3px 10px; border-radius: 20px; border: 1px solid #c3e6c3; }
+        .trail-arrow { color: #aaa; font-size: 0.8em; }
+        /* Progress */
+        .progress-bar { height: 4px; background: #eee; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #2d7a2d, #5abf5a); border-radius: 4px; transition: width 0.4s ease; }
         /* Question */
-        .q-label {
-            font-size: 0.8em;
-            color: #999;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
+        .q-label { font-size: 0.8em; color: #999; margin-bottom: 5px; }
         .question-box {
-            font-size: 1.15em;
-            color: #1a1a1a;
-            line-height: 1.7;
-            margin-bottom: 26px;
-            padding: 18px 20px;
-            background: #f4fbf4;
-            border-radius: 12px;
+            font-size: 1.1em; color: #1a1a1a; line-height: 1.7;
+            margin-bottom: 22px; padding: 16px 18px;
+            background: #f4fbf4; border-radius: 12px;
             border-right: 5px solid #2d7a2d;
         }
-
-        /* Options */
-        .options {
+        /* Leaf hint area */
+        .leaf-hint {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed #c3e6c3;
         }
-
+        .leaf-hint-item {
+            text-align: center;
+        }
+        .leaf-hint-item svg {
+            display: block;
+            margin: 0 auto;
+        }
+        .leaf-hint-label {
+            font-size: 0.7em;
+            color: #888;
+            margin-top: 4px;
+        }
+        /* Options */
+        .options { display: flex; flex-direction: column; gap: 10px; }
         .option-btn {
-            padding: 15px 20px;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            font-size: 1em;
-            text-align: right;
-            transition: all 0.2s ease;
-            color: #333;
-            line-height: 1.4;
+            padding: 14px 18px; border: 2px solid #ddd;
+            border-radius: 12px; background: white;
+            cursor: pointer; font-size: 1em;
+            text-align: right; transition: all 0.2s ease;
+            color: #333; line-height: 1.4;
         }
-
         .option-btn:hover {
-            border-color: #2d7a2d;
-            background: #f4fbf4;
+            border-color: #2d7a2d; background: #f4fbf4;
             transform: translateX(-4px);
             box-shadow: 0 4px 12px rgba(45,122,45,0.15);
         }
-
-        .option-btn:active {
-            transform: translateX(-2px);
-        }
-
+        .option-btn:active { transform: translateX(-2px); }
         /* Reset */
         .reset-btn {
-            background: none;
-            border: 2px solid #ccc;
-            color: #888;
-            padding: 10px 22px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9em;
-            margin-top: 22px;
-            display: block;
-            transition: all 0.2s;
+            background: none; border: 2px solid #ccc;
+            color: #888; padding: 9px 20px;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.88em; margin-top: 18px;
+            display: block; transition: all 0.2s;
         }
-
-        .reset-btn:hover {
-            border-color: #888;
-            color: #444;
-        }
-
+        .reset-btn:hover { border-color: #888; color: #444; }
         /* Result */
-        .result {
-            text-align: center;
+        .result { text-align: center; }
+        .result-check { font-size: 0.95em; color: #2d7a2d; font-weight: 600; margin-bottom: 10px; }
+        .plant-emoji { font-size: 3.5em; margin-bottom: 10px; display: block; }
+        .plant-name-he { font-size: 2em; color: #1a4a1a; font-weight: bold; margin-bottom: 4px; }
+        .plant-name-latin { font-size: 0.95em; color: #888; font-style: italic; margin-bottom: 18px; }
+        .plant-leaf-art {
+            display: flex; justify-content: center;
+            margin-bottom: 16px;
         }
-
-        .result-check {
-            font-size: 1em;
-            color: #2d7a2d;
-            font-weight: 600;
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .plant-emoji {
-            font-size: 4.5em;
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .plant-name-he {
-            font-size: 2.2em;
-            color: #1a4a1a;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .plant-name-latin {
-            font-size: 1em;
-            color: #888;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
+        .plant-leaf-art svg { filter: drop-shadow(0 2px 4px rgba(45,122,45,0.25)); }
         .plant-desc {
-            color: #555;
-            line-height: 1.7;
-            font-size: 0.97em;
-            background: #f4fbf4;
-            padding: 16px 20px;
-            border-radius: 12px;
-            text-align: right;
-            margin-bottom: 24px;
+            color: #555; line-height: 1.7; font-size: 0.95em;
+            background: #f4fbf4; padding: 14px 18px;
+            border-radius: 12px; text-align: right;
+            margin-bottom: 22px;
         }
-
         .result-reset-btn {
-            background: #2d7a2d;
-            color: white;
-            border: none;
-            padding: 13px 34px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1em;
+            background: #2d7a2d; color: white; border: none;
+            padding: 12px 32px; border-radius: 12px;
+            cursor: pointer; font-size: 1em;
             transition: background 0.2s;
         }
-
-        .result-reset-btn:hover {
-            background: #1a5a1a;
-        }
-
-        /* Progress bar */
-        .progress-bar {
-            height: 4px;
-            background: #eee;
-            border-radius: 4px;
-            margin-bottom: 22px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #2d7a2d, #5abf5a);
-            border-radius: 4px;
-            transition: width 0.4s ease;
-        }
+        .result-reset-btn:hover { background: #1a5a1a; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="header">
-            <h1>🌿 מפתח לזיהוי צמחים</h1>
-            <p>ענה על השאלות וגלה מהו הצמח שלפניך</p>
-        </div>
-
-        <div class="card">
-            <div id="trail" class="trail"></div>
-            <div class="progress-bar"><div id="progress" class="progress-fill" style="width:0%"></div></div>
-            <div id="quiz"></div>
-        </div>
+<div class="wrapper">
+    <div class="header">
+        <h1>🌿 מפתח לזיהוי צמחים</h1>
+        <p>ענה על השאלות וגלה מהו הצמח שלפניך</p>
     </div>
+    <div class="card">
+        <div id="trail" class="trail"></div>
+        <div class="progress-bar"><div id="progress" class="progress-fill" style="width:0%"></div></div>
+        <div id="quiz"></div>
+    </div>
+</div>
 
-    <script>
-        // ────── Decision Tree ──────
-        const tree = {
-            q1: {
-                num: 1,
-                text: "הצמח בעל ענפים קוצניים או חסר ענפים קוצניים?",
-                options: [
-                    { text: "הצמח בעל ענפים קוצניים 🌵", next: "q2" },
-                    { text: "הצמח חסר ענפים קוצניים 🌿", next: "q4" }
-                ]
-            },
-            q2: {
-                num: 2,
-                text: "ענפי הצמח בצבע אפור, העלים לתמנוניים (חסר עלים רוב השנה), הפרי מאורך ושעיר, הפריחה צהובה וריחנית?",
-                options: [
-                    { text: "כן ✓", result: "קידה שעירה" },
-                    { text: "לא →", next: "q3" }
-                ]
-            },
-            q3: {
-                num: 3,
-                text: "ענפי השיח בצבע ירקרק, העלים צרים ומאורכים (חסר עלים רוב השנה)?",
-                options: [
-                    { text: "כן ✓", result: "רתמה קוצנית" }
-                ]
-            },
-            q4: {
-                num: 4,
-                text: "העלים מחטניים, גמישים ויוצאים בזוגות?",
-                options: [
-                    { text: "כן ✓", result: "אורן ירושלים" },
-                    { text: "לא →", next: "q6" }
-                ]
-            },
-            q6: {
-                num: 6,
-                text: "העלים מורכבים או פשוטים?",
-                options: [
-                    { text: "עלים מורכבים (מחולקים לעלעלים)", next: "q11" },
-                    { text: "עלים פשוטים (שלמים)", next: "q8" }
-                ]
-            },
-            q8: {
-                num: 8,
-                text: "העלים משוננים ומסתיימים בחוד זקוף?",
-                options: [
-                    { text: "כן ✓", result: "אלון מצוי" },
-                    { text: "לא →", next: "q9" }
-                ]
-            },
-            q9: {
-                num: 9,
-                text: "העלים עגולים?",
-                options: [
-                    { text: "כן →", next: "q10" },
-                    { text: "לא (צורה אחרת)", result: null, dead: true }
-                ]
-            },
-            q10: {
-                num: 10,
-                text: "העלים רכים ומכוסים בשעוות לבנות?",
-                options: [
-                    { text: "כן ✓", result: "לוטם" }
-                ]
-            },
-            q11: {
-                num: 11,
-                text: "בחיק העלעלים — נמצא ניצן או לא נמצא ניצן?",
-                options: [
-                    { text: "נמצא ניצן →", next: "q12" },
-                    { text: "לא נמצא ניצן →", next: "q14" }
-                ]
-            },
-            q12: {
-                num: 12,
-                text: "רוחב העלעלים עולה על 2.5 ס\"מ?",
-                options: [
-                    { text: "כן — עלעלים רחבים מ-2.5 ס\"מ", result: "חרוב" },
-                    { text: "לא — עלעלים צרים מ-2.5 ס\"מ", next: "q14" }
-                ]
-            },
-            q14: {
-                num: 14,
-                text: "העלעלים רכים ובעלי ריח חריף?",
-                options: [
-                    { text: "כן ✓", result: "אלת המסטיק" },
-                    { text: "לא →", next: "q15" }
-                ]
-            },
-            q15: {
-                num: 15,
-                text: "העלעלים רכים, ראש העלעל מסתיים לרוב בחוד גמיש?",
-                options: [
-                    { text: "כן ✓", result: "אלה ארץ ישראלית" },
-                    { text: "לא — נוקשים ובעלי ריח חריף ✓", result: "אלת המסטיק" }
-                ]
-            }
-        };
+<script>
+// ══════════════════════════════════════════════
+//  SVG LEAF DRAWINGS — botanical illustrations
+// ══════════════════════════════════════════════
+const L = {
 
-        // ────── Plant Info ──────
-        const plants = {
-            'קידה שעירה': {
-                emoji: '🌼',
-                latin: 'Calicotome villosa',
-                desc: 'שיח קוצני גבוה עם ענפים אפורים. פורח בפרחים צהובים ריחניים בסוף החורף ובאביב. הפרי הוא תרמיל שעיר ומאורך. נפוץ מאוד בחורש הים-תיכוני של ישראל.'
-            },
-            'רתמה קוצנית': {
-                emoji: '🌾',
-                latin: 'Retama raetam',
-                desc: 'שיח קוצני עם ענפים ירקרקים ודקים, כמעט נטול עלים. גדל בשטחים חוליים ויבשים. מוכר ממנו "הרותם" בתנ"ך — שם ישב אליהו בצל.'
-            },
-            'אורן ירושלים': {
-                emoji: '🌲',
-                latin: 'Pinus halepensis',
-                desc: 'עץ ירוק-עד גבוה עם עלים מחטניים דקים וגמישים, היוצאים בזוגות. נפוץ בגבעות ובייעורים ברחבי ישראל. הזרעים ("גרעיני אורן") אכילים.'
-            },
-            'אלון מצוי': {
-                emoji: '🍂',
-                latin: 'Quercus calliprinos',
-                desc: 'עץ שיח ירוק-עד עם עלים קשים ומשוננים המסתיימים בחוד זקוף. הפרי הוא בלוט קטן. נפוץ מאוד ומרכזי ביותר בחורש הים-תיכוני.'
-            },
-            'לוטם': {
-                emoji: '🌸',
-                latin: 'Cistus sp.',
-                desc: 'שיח בעל עלים רכים מכוסי שעוות לבנות ושעירות. פורח בפרחים לבנים או ורודים גדולים. מפיק שרף ריחני (לבדנום) שנחשב יקר ערך בעת העתיקה.'
-            },
-            'חרוב': {
-                emoji: '🫘',
-                latin: 'Ceratonia siliqua',
-                desc: 'עץ ירוק-עד כבד וסבוך עם עלים מורכבים ועלעלים רחבים ועגלגלים. הפרי — תרמיל החרוב — מתוק ואכיל. עץ מקודש ואהוב בארץ ישראל מאז ומתמיד.'
-            },
-            'אלת המסטיק': {
-                emoji: '🌿',
-                latin: 'Pistacia lentiscus',
-                desc: 'שיח ירוק-עד עם עלים מורכבים ובעלי ריח חריף ואופייני. מפיק שרף המסטיק הידוע. מרכיב בסיסי בחורש הים-תיכוני, עמיד מאוד לבצורת.'
-            },
-            'אלה ארץ ישראלית': {
-                emoji: '🍃',
-                latin: 'Pistacia palaestina',
-                desc: 'עץ נשיר עם עלים מורכבים רכים; ראש העלעל מסתיים בחוד גמיש ולא מחודד. הפרי קטן ואדמדם. עץ יפה המאבד עליו בחורף ומלבין אדום בסתיו.'
-            }
-        };
+  // Two pine needles in a fascicle (pair), joined at base (אורן ירושלים)
+  needles: `<svg viewBox="0 0 50 90" width="44" height="80" xmlns="http://www.w3.org/2000/svg">
+    <line x1="25" y1="88" x2="25" y2="74" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="25" cy="72" rx="5" ry="3.5" fill="#b8ddb8" stroke="#2d7a2d" stroke-width="1"/>
+    <path d="M25 72 Q21 55 10 6" stroke="#2d7a2d" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M25 72 Q29 55 40 6" stroke="#2d7a2d" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <line x1="17" y1="52" x2="33" y2="52" stroke="#2d7a2d" stroke-width="0.7" opacity="0.4"/>
+    <line x1="14" y1="36" x2="36" y2="36" stroke="#2d7a2d" stroke-width="0.7" opacity="0.4"/>
+    <line x1="12" y1="22" x2="38" y2="22" stroke="#2d7a2d" stroke-width="0.7" opacity="0.4"/>
+  </svg>`,
 
-        // ────── State ──────
-        let history = [];
-        let currentQ = 'q1';
-        const TOTAL_MAX = 6; // approximate max depth for progress bar
+  // Serrated/spiny leaf with upright terminal point (אלון מצוי)
+  serrated: `<svg viewBox="0 0 52 88" width="42" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="26" y1="88" x2="26" y2="78" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M26 78 L23 66 L18 64 L22 57 L16 51 L21 47 L15 39 L21 35 L16 26 L22 22 L19 13 L26 5
+             L33 13 L30 22 L36 26 L31 35 L37 39 L29 47 L34 51 L28 57 L32 64 L29 66 Z"
+          fill="rgba(45,122,45,0.12)" stroke="#2d7a2d" stroke-width="1.6" stroke-linejoin="round"/>
+    <line x1="26" y1="5" x2="26" y2="78" stroke="#2d7a2d" stroke-width="0.8" opacity="0.4"/>
+    <path d="M17 48 Q26 50 35 48" stroke="#2d7a2d" stroke-width="0.7" fill="none" opacity="0.35"/>
+    <path d="M19 62 Q26 64 33 62" stroke="#2d7a2d" stroke-width="0.7" fill="none" opacity="0.35"/>
+  </svg>`,
 
-        // ────── Render ──────
-        function render() {
-            renderTrail();
-            const node = tree[currentQ];
-            if (!node) return;
+  // Round soft leaf with veins (לוטם)
+  round: `<svg viewBox="0 0 64 88" width="52" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="88" x2="32" y2="77" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M32 77 C8 77 5 55 5 42 C5 20 16 8 32 8 C48 8 59 20 59 42 C59 55 56 77 32 77 Z"
+          fill="rgba(45,122,45,0.11)" stroke="#2d7a2d" stroke-width="1.6"/>
+    <line x1="32" y1="8" x2="32" y2="77" stroke="#2d7a2d" stroke-width="0.9" opacity="0.45"/>
+    <path d="M32 32 Q22 34 14 30" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M32 32 Q42 34 50 30" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M32 48 Q20 51 12 46" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M32 48 Q44 51 52 46" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M32 62 Q22 65 16 60" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M32 62 Q42 65 48 60" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+  </svg>`,
 
-            document.getElementById('progress').style.width =
-                Math.min((history.length / TOTAL_MAX) * 100, 90) + '%';
+  // Palmate/trifoliate leaf (3 leaflets from center) — קידה שעירה
+  palmate: `<svg viewBox="0 0 80 88" width="64" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="40" y1="88" x2="40" y2="70" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- center leaflet -->
+    <path d="M40 70 C36 56 35 38 40 10 C45 38 44 56 40 70 Z"
+          fill="rgba(45,122,45,0.15)" stroke="#2d7a2d" stroke-width="1.5"/>
+    <!-- left leaflet -->
+    <g transform="rotate(-40, 40, 70)">
+      <path d="M40 70 C36 57 35 40 40 14 C45 40 44 57 40 70 Z"
+            fill="rgba(45,122,45,0.12)" stroke="#2d7a2d" stroke-width="1.3"/>
+    </g>
+    <!-- right leaflet -->
+    <g transform="rotate(40, 40, 70)">
+      <path d="M40 70 C36 57 35 40 40 14 C45 40 44 57 40 70 Z"
+            fill="rgba(45,122,45,0.12)" stroke="#2d7a2d" stroke-width="1.3"/>
+    </g>
+    <!-- optional 4th/5th -->
+    <g transform="rotate(-75, 40, 70)">
+      <path d="M40 70 C37 59 36 44 40 20 C44 44 43 59 40 70 Z"
+            fill="rgba(45,122,45,0.08)" stroke="#2d7a2d" stroke-width="1.1"/>
+    </g>
+    <g transform="rotate(75, 40, 70)">
+      <path d="M40 70 C37 59 36 44 40 20 C44 44 43 59 40 70 Z"
+            fill="rgba(45,122,45,0.08)" stroke="#2d7a2d" stroke-width="1.1"/>
+    </g>
+  </svg>`,
 
-            let optionsHtml = node.options.map((opt, i) => {
-                if (opt.dead) {
-                    return `<button class="option-btn" style="color:#aaa;cursor:default" disabled>${opt.text}</button>`;
-                }
-                return `<button class="option-btn" onclick="answer(${i})">${opt.text}</button>`;
-            }).join('');
+  // Narrow linear leaf — רתמה קוצנית
+  narrow: `<svg viewBox="0 0 30 88" width="26" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="15" y1="88" x2="15" y2="78" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M15 78 C20 65 21 45 15 6 C9 45 10 65 15 78 Z"
+          fill="rgba(45,122,45,0.12)" stroke="#2d7a2d" stroke-width="1.5"/>
+    <line x1="15" y1="6" x2="15" y2="78" stroke="#2d7a2d" stroke-width="0.8" opacity="0.4"/>
+  </svg>`,
 
-            let resetHtml = history.length > 0
-                ? `<button class="reset-btn" onclick="reset()">↩ התחל מחדש</button>`
-                : '';
+  // Simple leaf (generic) — for Q6 simple branch
+  simple: `<svg viewBox="0 0 52 88" width="40" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="26" y1="88" x2="26" y2="78" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M26 78 C8 75 5 52 10 32 C15 14 26 8 26 8 C26 8 37 14 42 32 C47 52 44 75 26 78 Z"
+          fill="rgba(45,122,45,0.12)" stroke="#2d7a2d" stroke-width="1.5"/>
+    <line x1="26" y1="8" x2="26" y2="78" stroke="#2d7a2d" stroke-width="0.9" opacity="0.45"/>
+    <path d="M26 35 Q17 37 10 33" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M26 35 Q35 37 42 33" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M26 52 Q16 55 9 50" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+    <path d="M26 52 Q36 55 43 50" stroke="#2d7a2d" stroke-width="0.75" fill="none" opacity="0.45"/>
+  </svg>`,
 
-            document.getElementById('quiz').innerHTML = `
-                <div class="q-label">שאלה ${node.num}</div>
-                <div class="question-box">${node.text}</div>
-                <div class="options">${optionsHtml}</div>
-                ${resetHtml}
-            `;
-        }
+  // Compound leaf with wide leaflets >2.5cm — חרוב
+  widePinnate: `<svg viewBox="0 0 76 88" width="62" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="38" y1="88" x2="38" y2="8" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- pair 1 (wide ovals ~14px rx) -->
+    <path d="M38 18 C28 14 14 18 16 28 C18 36 30 34 38 30" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <path d="M38 18 C48 14 62 18 60 28 C58 36 46 34 38 30" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <!-- pair 2 -->
+    <path d="M38 40 C28 36 14 40 16 50 C18 58 30 56 38 52" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <path d="M38 40 C48 36 62 40 60 50 C58 58 46 56 38 52" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <!-- pair 3 -->
+    <path d="M38 62 C28 58 14 62 16 72 C18 80 30 78 38 74" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <path d="M38 62 C48 58 62 62 60 72 C58 80 46 78 38 74" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.3"/>
+  </svg>`,
 
-        function renderTrail() {
-            const trailEl = document.getElementById('trail');
-            if (history.length === 0) { trailEl.innerHTML = ''; return; }
+  // Compound leaf with narrow leaflets, no terminal — אלת המסטיק (even-pinnate)
+  narrowPinnate: `<svg viewBox="0 0 64 88" width="52" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="88" x2="32" y2="8" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- narrow leaflets: rx~9 ry~4 alternating -->
+    <path d="M32 15 C24 12 15 16 16 22 C17 28 26 26 32 22" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 15 C40 12 49 16 48 22 C47 28 38 26 32 22" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 32 C24 29 15 33 16 39 C17 45 26 43 32 39" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 32 C40 29 49 33 48 39 C47 45 38 43 32 39" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 50 C24 47 15 51 16 57 C17 63 26 61 32 57" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 50 C40 47 49 51 48 57 C47 63 38 61 32 57" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 68 C24 65 15 69 16 75 C17 81 26 79 32 75" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 68 C40 65 49 69 48 75 C47 81 38 79 32 75" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+  </svg>`,
 
-            let html = '';
-            history.forEach((h, i) => {
-                if (i > 0) html += '<span class="trail-arrow">›</span>';
-                html += `<span class="trail-item">${h}</span>`;
-            });
-            trailEl.innerHTML = html;
-        }
+  // Compound leaf with narrow leaflets + terminal leaflet — אלה ארץ ישראלית (odd-pinnate)
+  narrowPinnateTip: `<svg viewBox="0 0 64 88" width="52" height="72" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="88" x2="32" y2="78" stroke="#5a8a3a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="32" y1="78" x2="32" y2="8" stroke="#5a8a3a" stroke-width="2"/>
+    <!-- terminal leaflet with soft rounded tip at top -->
+    <path d="M32 8 C28 6 25 9 26 13 C27 17 30 16 32 15 C34 16 37 17 38 13 C39 9 36 6 32 8 Z"
+          fill="rgba(45,122,45,0.18)" stroke="#2d7a2d" stroke-width="1.3"/>
+    <!-- narrow paired leaflets below -->
+    <path d="M32 22 C24 19 15 23 16 29 C17 35 26 33 32 29" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 22 C40 19 49 23 48 29 C47 35 38 33 32 29" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C24 37 15 41 16 47 C17 53 26 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C40 37 49 41 48 47 C47 53 38 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 58 C24 55 15 59 16 65 C17 71 26 69 32 65" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 58 C40 55 49 59 48 65 C47 71 38 69 32 65" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+  </svg>`,
 
-        // ────── Interactions ──────
-        function answer(optIndex) {
-            const node = tree[currentQ];
-            const opt = node.options[optIndex];
+  // Thorny branches hint (Q1)
+  thorns: `<svg viewBox="0 0 70 60" width="62" height="52" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 50 Q30 30 65 20" stroke="#8a6a2d" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <line x1="22" y1="39" x2="15" y2="26" stroke="#8a6a2d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="38" y1="32" x2="34" y2="18" stroke="#8a6a2d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="52" y1="26" x2="50" y2="12" stroke="#8a6a2d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="30" y1="36" x2="36" y2="48" stroke="#8a6a2d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="46" y1="29" x2="52" y2="40" stroke="#8a6a2d" stroke-width="2" stroke-linecap="round"/>
+  </svg>`,
 
-            // Clean emoji for trail
-            const trailText = opt.text.replace(/[🌵🌿🌾🌲🍂🌸🫘🍃🌼✓→]/g, '').trim();
-            history.push(trailText);
+  // Smooth branch (no thorns) hint
+  smooth: `<svg viewBox="0 0 70 60" width="62" height="52" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 50 Q30 30 65 20" stroke="#5a8a3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="20" cy="36" rx="8" ry="5" fill="rgba(45,122,45,0.2)" stroke="#2d7a2d" stroke-width="1.2" transform="rotate(-30 20 36)"/>
+    <ellipse cx="38" cy="28" rx="8" ry="5" fill="rgba(45,122,45,0.2)" stroke="#2d7a2d" stroke-width="1.2" transform="rotate(-25 38 28)"/>
+    <ellipse cx="55" cy="22" rx="8" ry="5" fill="rgba(45,122,45,0.2)" stroke="#2d7a2d" stroke-width="1.2" transform="rotate(-20 55 22)"/>
+  </svg>`,
 
-            if (opt.result) {
-                showResult(opt.result);
-            } else if (opt.next) {
-                currentQ = opt.next;
-                render();
-            }
-        }
+  // Compound leaf hint (for Q6)
+  compound: `<svg viewBox="0 0 64 72" width="50" height="56" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="70" x2="32" y2="10" stroke="#5a8a3a" stroke-width="2"/>
+    <path d="M32 18 C24 15 15 19 16 25 C17 31 26 29 32 25" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 18 C40 15 49 19 48 25 C47 31 38 29 32 25" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 36 C24 33 15 37 16 43 C17 49 26 47 32 43" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 36 C40 33 49 37 48 43 C47 49 38 47 32 43" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 54 C24 51 15 55 16 61 C17 67 26 65 32 61" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 54 C40 51 49 55 48 61 C47 67 38 65 32 61" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+  </svg>`,
 
-        function showResult(plantName) {
-            const plant = plants[plantName];
-            document.getElementById('progress').style.width = '100%';
-            renderTrail();
+  // Compound leaf with bud in axil
+  budInAxil: `<svg viewBox="0 0 64 72" width="50" height="56" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="70" x2="32" y2="10" stroke="#5a8a3a" stroke-width="2"/>
+    <path d="M32 20 C24 17 15 21 16 27 C17 33 26 31 32 27" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 20 C40 17 49 21 48 27 C47 33 38 31 32 27" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C24 37 15 41 16 47 C17 53 26 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C40 37 49 41 48 47 C47 53 38 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <!-- bud dot at axil -->
+    <circle cx="32" cy="20" r="3.5" fill="#f0a030" stroke="#c07000" stroke-width="1"/>
+    <circle cx="32" cy="40" r="3.5" fill="#f0a030" stroke="#c07000" stroke-width="1"/>
+    <text x="38" y="24" font-size="8" fill="#c07000" font-family="Arial">ניצן</text>
+  </svg>`,
 
-            document.getElementById('quiz').innerHTML = `
-                <div class="result">
-                    <div class="result-check">✅ זוהה הצמח</div>
-                    <span class="plant-emoji">${plant.emoji}</span>
-                    <div class="plant-name-he">${plantName}</div>
-                    <div class="plant-name-latin">${plant.latin}</div>
-                    <div class="plant-desc">${plant.desc}</div>
-                    <button class="result-reset-btn" onclick="reset()">🔄 זיהוי צמח חדש</button>
-                </div>
-            `;
-        }
+  // No bud in axil
+  noBud: `<svg viewBox="0 0 64 72" width="50" height="56" xmlns="http://www.w3.org/2000/svg">
+    <line x1="32" y1="70" x2="32" y2="10" stroke="#5a8a3a" stroke-width="2"/>
+    <path d="M32 20 C24 17 15 21 16 27 C17 33 26 31 32 27" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 20 C40 17 49 21 48 27 C47 33 38 31 32 27" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C24 37 15 41 16 47 C17 53 26 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <path d="M32 40 C40 37 49 41 48 47 C47 53 38 51 32 47" fill="rgba(45,122,45,0.13)" stroke="#2d7a2d" stroke-width="1.2"/>
+    <!-- X mark at axil = no bud -->
+    <line x1="29" y1="17" x2="35" y2="23" stroke="#cc3333" stroke-width="1.5"/>
+    <line x1="35" y1="17" x2="29" y2="23" stroke="#cc3333" stroke-width="1.5"/>
+    <line x1="29" y1="37" x2="35" y2="43" stroke="#cc3333" stroke-width="1.5"/>
+    <line x1="35" y1="37" x2="29" y2="43" stroke="#cc3333" stroke-width="1.5"/>
+  </svg>`,
 
-        function reset() {
-            history = [];
-            currentQ = 'q1';
-            render();
-        }
+};
 
-        // ────── Init ──────
-        render();
-    </script>
+// ══════════════════════════════════════════════
+//  DECISION TREE
+// ══════════════════════════════════════════════
+const tree = {
+    q1: {
+        num: 1,
+        text: "הצמח בעל ענפים קוצניים או חסר ענפים קוצניים?",
+        hint: [
+            { svg: L.thorns, label: "ענפים קוצניים" },
+            { svg: L.smooth, label: "ענפים חלקים" }
+        ],
+        options: [
+            { text: "הצמח בעל ענפים קוצניים 🌵", next: "q2" },
+            { text: "הצמח חסר ענפים קוצניים 🌿", next: "q4" }
+        ]
+    },
+    q2: {
+        num: 2,
+        text: "ענפי הצמח בצבע אפור, העלים לתמנוניים (חסר עלים רוב השנה), הפרי מאורך ושעיר, הפריחה צהובה וריחנית?",
+        hint: [{ svg: L.palmate, label: "עלים לתמנוניים" }],
+        options: [
+            { text: "כן ✓", result: "קידה שעירה" },
+            { text: "לא →", next: "q3" }
+        ]
+    },
+    q3: {
+        num: 3,
+        text: "ענפי השיח בצבע ירקרק, העלים צרים ומאורכים (חסר עלים רוב השנה)?",
+        hint: [{ svg: L.narrow, label: "עלים צרים ומאורכים" }],
+        options: [
+            { text: "כן ✓", result: "רתמה קוצנית" }
+        ]
+    },
+    q4: {
+        num: 4,
+        text: "העלים מחטניים, גמישים ויוצאים בזוגות?",
+        hint: [{ svg: L.needles, label: "מחטים בזוגות" }],
+        options: [
+            { text: "כן ✓", result: "אורן ירושלים" },
+            { text: "לא →", next: "q6" }
+        ]
+    },
+    q6: {
+        num: 6,
+        text: "העלים מורכבים או פשוטים?",
+        hint: [
+            { svg: L.compound, label: "עלים מורכבים" },
+            { svg: L.simple,   label: "עלים פשוטים" }
+        ],
+        options: [
+            { text: "עלים מורכבים (מחולקים לעלעלים)", next: "q11" },
+            { text: "עלים פשוטים (שלמים)", next: "q8" }
+        ]
+    },
+    q8: {
+        num: 8,
+        text: "העלים משוננים ומסתיימים בחוד זקוף?",
+        hint: [{ svg: L.serrated, label: "עלה משונן" }],
+        options: [
+            { text: "כן ✓", result: "אלון מצוי" },
+            { text: "לא →", next: "q9" }
+        ]
+    },
+    q9: {
+        num: 9,
+        text: "העלים עגולים?",
+        hint: [{ svg: L.round, label: "עלים עגולים" }],
+        options: [
+            { text: "כן →", next: "q10" },
+            { text: "לא (צורה אחרת)", dead: true }
+        ]
+    },
+    q10: {
+        num: 10,
+        text: "העלים רכים ומכוסים בשעוות לבנות?",
+        hint: [{ svg: L.round, label: "עלה עגול ורך" }],
+        options: [
+            { text: "כן ✓", result: "לוטם" }
+        ]
+    },
+    q11: {
+        num: 11,
+        text: "בחיק העלעלים — נמצא ניצן או לא נמצא ניצן?",
+        hint: [
+            { svg: L.budInAxil, label: "יש ניצן" },
+            { svg: L.noBud,     label: "אין ניצן" }
+        ],
+        options: [
+            { text: "נמצא ניצן →", next: "q12" },
+            { text: "לא נמצא ניצן →", next: "q14" }
+        ]
+    },
+    q12: {
+        num: 12,
+        text: "רוחב העלעלים עולה על 2.5 ס\"מ?",
+        hint: [
+            { svg: L.widePinnate,  label: "עלעלים רחבים >2.5 ס״מ" },
+            { svg: L.narrowPinnate, label: "עלעלים צרים ≤2.5 ס״מ" }
+        ],
+        options: [
+            { text: "כן — עלעלים רחבים מ-2.5 ס\"מ", result: "חרוב" },
+            { text: "לא — עלעלים צרים מ-2.5 ס\"מ", next: "q14" }
+        ]
+    },
+    q14: {
+        num: 14,
+        text: "העלעלים רכים ובעלי ריח חריף?",
+        hint: [{ svg: L.narrowPinnate, label: "עלעלים צרים" }],
+        options: [
+            { text: "כן ✓", result: "אלת המסטיק" },
+            { text: "לא →", next: "q15" }
+        ]
+    },
+    q15: {
+        num: 15,
+        text: "העלעלים רכים, ראש העלעל מסתיים לרוב בחוד גמיש?",
+        hint: [
+            { svg: L.narrowPinnateTip, label: "חוד גמיש (אלה)" },
+            { svg: L.narrowPinnate,    label: "ללא חוד גמיש (אלת)" }
+        ],
+        options: [
+            { text: "כן — חוד גמיש ✓", result: "אלה ארץ ישראלית" },
+            { text: "לא — עלעלים נוקשים, ריח חריף ✓", result: "אלת המסטיק" }
+        ]
+    }
+};
+
+// ══════════════════════════════════════════════
+//  PLANT INFO
+// ══════════════════════════════════════════════
+const plants = {
+    'קידה שעירה': {
+        emoji: '🌼', latin: 'Calicotome villosa',
+        leafArt: L.palmate,
+        desc: 'שיח קוצני עם ענפים אפורים ועלים לתמנוניים (3 עלעלים). פורח בצהוב ריחני בסוף החורף. הפרי תרמיל שעיר. נפוץ מאוד בחורש הים-תיכוני.'
+    },
+    'רתמה קוצנית': {
+        emoji: '🌾', latin: 'Retama raetam',
+        leafArt: L.narrow,
+        desc: 'שיח קוצני עם ענפים ירקרקים ודקים, כמעט נטול עלים. גדל בשטחים חוליים. מוכר ממנו "הרותם" בתנ"ך — תחתיו ישב אליהו.'
+    },
+    'אורן ירושלים': {
+        emoji: '🌲', latin: 'Pinus halepensis',
+        leafArt: L.needles,
+        desc: 'עץ ירוק-עד עם מחטים דקים וגמישים בזוגות. נפוץ בגבעות ובייעורים ברחבי ישראל. גרעיני האורן אכילים.'
+    },
+    'אלון מצוי': {
+        emoji: '🍂', latin: 'Quercus calliprinos',
+        leafArt: L.serrated,
+        desc: 'עץ-שיח ירוק-עד עם עלים קשים ומשוננים, המסתיימים בחוד זקוף. פרי הבלוט. מרכיב מרכזי בחורש הים-תיכוני.'
+    },
+    'לוטם': {
+        emoji: '🌸', latin: 'Cistus sp.',
+        leafArt: L.round,
+        desc: 'שיח עם עלים עגולים רכים ושעירים, מכוסי שעוות לבנות. פרחים לבנים או ורודים. מפיק שרף לבדנום שנחשב יקר בעת העתיקה.'
+    },
+    'חרוב': {
+        emoji: '🫘', latin: 'Ceratonia siliqua',
+        leafArt: L.widePinnate,
+        desc: 'עץ ירוק-עד עם עלים מורכבים ועלעלים רחבים ועגלגלים (>2.5 ס"מ). ניצן בחיק העלעלים. פרי החרוב מתוק ואכיל. עץ עתיק וסמלי בארץ ישראל.'
+    },
+    'אלת המסטיק': {
+        emoji: '🌿', latin: 'Pistacia lentiscus',
+        leafArt: L.narrowPinnate,
+        desc: 'שיח ירוק-עד עם עלים מורכבים ועלעלים צרים בעלי ריח חריף. אין עלעל קצה. מפיק שרף המסטיק. עמיד לבצורת, נפוץ מאוד בחורש.'
+    },
+    'אלה ארץ ישראלית': {
+        emoji: '🍃', latin: 'Pistacia palaestina',
+        leafArt: L.narrowPinnateTip,
+        desc: 'עץ נשיר עם עלים מורכבים רכים; ראש העלעל מסתיים בחוד גמיש. יש עלעל קצה. פרי קטן ואדמדם. מאבד עליו בחורף.'
+    }
+};
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let history = [];
+let currentQ = 'q1';
+const TOTAL_MAX = 6;
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function renderTrail() {
+    const el = document.getElementById('trail');
+    if (!history.length) { el.innerHTML = ''; return; }
+    el.innerHTML = history.map((h, i) =>
+        (i > 0 ? '<span class="trail-arrow">›</span>' : '') +
+        `<span class="trail-item">${h}</span>`
+    ).join('');
+}
+
+function buildHint(hintArr) {
+    if (!hintArr || !hintArr.length) return '';
+    const items = hintArr.map(h =>
+        `<div class="leaf-hint-item">${h.svg}<div class="leaf-hint-label">${h.label}</div></div>`
+    ).join('');
+    return `<div class="leaf-hint">${items}</div>`;
+}
+
+function render() {
+    renderTrail();
+    const node = tree[currentQ];
+    if (!node) return;
+
+    document.getElementById('progress').style.width =
+        Math.min((history.length / TOTAL_MAX) * 100, 90) + '%';
+
+    const optionsHtml = node.options.map((opt, i) => {
+        if (opt.dead) return `<button class="option-btn" style="color:#bbb;cursor:default" disabled>${opt.text}</button>`;
+        return `<button class="option-btn" onclick="answer(${i})">${opt.text}</button>`;
+    }).join('');
+
+    const resetHtml = history.length > 0
+        ? `<button class="reset-btn" onclick="reset()">↩ התחל מחדש</button>` : '';
+
+    document.getElementById('quiz').innerHTML = `
+        <div class="q-label">שאלה ${node.num}</div>
+        <div class="question-box">
+            ${node.text}
+            ${buildHint(node.hint)}
+        </div>
+        <div class="options">${optionsHtml}</div>
+        ${resetHtml}
+    `;
+}
+
+function answer(i) {
+    const opt = tree[currentQ].options[i];
+    const label = opt.text.replace(/[✓→🌵🌿🌾🌲🍂🌸🫘🍃🌼]/g, '').trim();
+    history.push(label);
+    if (opt.result) showResult(opt.result);
+    else if (opt.next) { currentQ = opt.next; render(); }
+}
+
+function showResult(name) {
+    const p = plants[name];
+    document.getElementById('progress').style.width = '100%';
+    renderTrail();
+    document.getElementById('quiz').innerHTML = `
+        <div class="result">
+            <div class="result-check">✅ זוהה הצמח</div>
+            <span class="plant-emoji">${p.emoji}</span>
+            <div class="plant-name-he">${name}</div>
+            <div class="plant-name-latin">${p.latin}</div>
+            <div class="plant-leaf-art">${p.leafArt}</div>
+            <div class="plant-desc">${p.desc}</div>
+            <button class="result-reset-btn" onclick="reset()">🔄 זיהוי צמח חדש</button>
+        </div>
+    `;
+}
+
+function reset() {
+    history = [];
+    currentQ = 'q1';
+    render();
+}
+
+render();
+</script>
 </body>
 </html>
